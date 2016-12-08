@@ -7,12 +7,14 @@ def distance
   x_distance = 0
   y_distance = 0
 
-  current_direction = 0
+  visited = []
 
+  current_direction = 0
+  count = 0
   path.each do |turn|
     length = turn[1].to_i
     dir = turn[0]
-
+    count += 1
     current_direction = change_directions(dir, current_direction)
 
     case directions[current_direction]
@@ -25,9 +27,15 @@ def distance
     when 'W'
       x_distance -= length
     end
+    p "#{count}: #{[x_distance, y_distance]}"
+    if visited.include?([x_distance, y_distance])
+      return x_distance.abs + y_distance.abs
+    else
+      visited << [x_distance, y_distance]
+    end
   end
 
-  x_distance.abs + y_distance.abs
+
 end
 
 def change_directions(str, current_dir)
