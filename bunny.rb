@@ -27,7 +27,7 @@ def distance
     when 'W'
       x_distance -= length
     end
-    p "#{count}: #{[x_distance, y_distance]}"
+    puts "#{count}: #{[x_distance, y_distance]}"
     if visited.include?([x_distance, y_distance])
       return x_distance.abs + y_distance.abs
     else
@@ -48,6 +48,7 @@ def change_directions(str, current_dir)
       current_dir -= 1
     end
   end
+  current_dir
 end
 
 print distance
