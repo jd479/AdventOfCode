@@ -37,4 +37,36 @@ def read_security(file)
   sum
 end
 
-p read_security('security.txt')
+def caesar(letter, shift)
+  alphabet = ('a'..'z').to_a
+  if letter == '-'
+    return ' '
+  end
+
+  idx = alphabet.index(letter)
+  shifted_idx = (idx + shift) % 26
+  alphabet[shifted_idx]
+end
+
+def security2(code)
+  lb = code.index('[')
+  last_dash = code.rindex('-')
+  encrypted = code[0...last_dash]
+  room_num = code[last_dash + 1 ... lb].to_i
+
+  decrypted = ''
+  encrypted.chars do |letter|
+    decrypted += caesar(letter, room_num)
+  end
+  [decrypted, room_num]
+end
+
+def read_security2(file)
+  codes = File.readlines(file)
+  codes.each do |code|
+    secret = security2(code)
+    return secret[1] if secret[0].include?('north')
+  end
+end
+# aaaaa-bbb-z-y-x-123[abxyz]
+puts read_security2('security.txt')
