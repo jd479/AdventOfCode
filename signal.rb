@@ -11,7 +11,7 @@ def signal(file)
       letter_count[letter] += 1
       line_num += 1
     end
-    largest_pair = letter_count.max_by { |letter, count| count}
+    largest_pair = letter_count.min_by { |letter, count| count}
     code += largest_pair[0]
     idx += 1
   end
